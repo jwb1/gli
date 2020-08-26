@@ -7,12 +7,12 @@ set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
+option(GLI_BUILD_TESTS "Build the GLI test programs" OFF)
+
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(GNUInstallDirs)
 include(CMakePackageConfigHelpers)
-
-enable_testing()
 
 add_definitions(-D_CRT_SECURE_NO_WARNINGS)
 add_definitions(-DSOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
@@ -71,7 +71,11 @@ endmacro(addExternalPackageGTC)
 # Add subdirectory
 
 add_subdirectory(gli)
-add_subdirectory(test)
+
+if (GLI_BUILD_TESTS)
+	enable_testing()
+	add_subdirectory(test)
+endif()
 #add_subdirectory(doc)
 
 ################################
